@@ -1,8 +1,8 @@
 package ru.job4j;
 
 import org.junit.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -15,6 +15,15 @@ import static org.junit.Assert.assertThat;
  * */
 
 public class CalculateTest {
+
+/**
+ * * Test.
+ * *
+ * * @author Artem Lipatov
+ * * @version $Id$
+ * * @since 0.1
+ * */
+
 	@Test
     public void whenTakeNameThenTreeEchoPlusName() {
         String input = "Artem";
