@@ -1,8 +1,7 @@
 package ru.job4j.calculator;
 
 import org.junit.Test;
-//import java.io.ByteArrayOutputStream;
-//import java.io.PrintStream;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,8 +19,6 @@ public class CalculatorTest {
      * * Test.
      * *
      * * @author Artem Lipatov
-     * * @version $Id$
-     * * @since 0.1
      * */
 
     @Test
@@ -33,6 +30,12 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    /**
+     * * Test.
+     * *
+     * * @author Artem Lipatov
+     * */
+
     @Test
     public void whenSubFiveMinusTwoThenThree() {
         Calculator calc = new Calculator();
@@ -42,6 +45,12 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    /**
+     * * Test.
+     * *
+     * * @author Artem Lipatov
+     * */
+
     @Test
     public void whenMulSevenWithSixThenFortyTwo() {
         Calculator calc = new Calculator();
@@ -50,6 +59,12 @@ public class CalculatorTest {
         double expected = 42D;
         assertThat(result, is(expected));
     }
+
+    /**
+     * * Test.
+     * *
+     * * @author Artem Lipatov
+     * */
 
     @Test
     public void whenDivNineByThreeThenThree() {
