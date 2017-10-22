@@ -39,4 +39,25 @@ public class MaxTest {
         int result = maxim.max(5, 2);
         assertThat(result, is(5));
     }
+
+    @Test
+    public void whenFirstIsMax() {
+        Max maxim = new Max();
+        int result = maxim.max(23, 4, 5);
+        assertThat(result, is(23));
+    }
+
+    @Test
+    public void whenSecondIsMax() {
+        Max maxim = new Max();
+        int result = maxim.max(8, 65, -4);
+        assertThat(result, is(65));
+    }
+
+    @Test
+    public void whenThirdIsMax() {
+        Max maxim = new Max();
+        int result = maxim.max(54, 7, 99);
+        assertThat(result, is(99));
+    }
 }
