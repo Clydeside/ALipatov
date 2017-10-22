@@ -65,8 +65,8 @@ public class Point {
      */
 
     public boolean is(int a, int b) {
-        int y = getY();
-        int x = getX();
+        int y = this.y;
+        int x = this.x;
         x = x * a + b;
         return (x == y) ? true : false;
     }
