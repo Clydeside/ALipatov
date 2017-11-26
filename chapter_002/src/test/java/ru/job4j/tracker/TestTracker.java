@@ -20,10 +20,10 @@ public class TestTracker {
         Tracker tracker = new Tracker();
         Item item = new Item("test","testDescription",123L);
         tracker.add(item);
-        item.setDesk("Description");
+        item.setDesc("Description");
         tracker.update(item);
         String result = "Description";
-        assertThat(tracker.findAll()[0].getDesk(), is(result));
+        assertThat(tracker.findAll()[0].getDesc(), is(result));
     }
 
     @Test
