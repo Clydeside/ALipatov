@@ -17,6 +17,16 @@ public class StartUI {
     }
 
     public void init() {
+//        MenuTracker menu = new MenuTracker(input, tracker);
+//        menu.fillActions();
+//        do {
+//            menu.show();
+//            int key = Integer.valueOf(input.ask("Select: "));
+//            menu.select(key);
+//        }
+//        while (!"y".equals(this.input.ask("Exit?(y): ")));
+
+        Tracker tracker = new Tracker();
         boolean exit = false;
         while (!exit) {
             this.showMenu();
