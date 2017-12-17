@@ -22,8 +22,10 @@ public class Tracker {
         String id = item.getId();
         Item one = this.findById(id);
         for (int i = 0; i < items.length; i++) {
-            if ((items[i] != null) && (items[i].getId().equals(one.getId())))
+            if ((items[i] != null) && (items[i].getId().equals(one.getId()))) {
                 items[i] = item;
+                break;
+            }
         }
     }
 
