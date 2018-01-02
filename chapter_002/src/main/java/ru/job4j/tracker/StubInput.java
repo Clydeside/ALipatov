@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 public class StubInput implements Input {
     private String[] answers;
-    private int position;
+    private int position = 0;
 
     public StubInput(String[] answers) {
         this.answers = answers;
@@ -10,5 +10,9 @@ public class StubInput implements Input {
 
     public String ask(String questions) {
         return answers[position++];
+    }
+
+    public int ask(String question, int[] range) {
+        return  -1;
     }
 }
