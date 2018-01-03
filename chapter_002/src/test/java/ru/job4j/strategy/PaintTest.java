@@ -6,7 +6,6 @@ import static org.junit.Assert.assertThat;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-
 public class PaintTest {
     @Test
     public void whenDrawSquare() {
