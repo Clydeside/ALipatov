@@ -12,8 +12,8 @@ public class StubInputTest {
         Item item = new Item();
         tracker.add(item);
         String result = item.getId();
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "y", "6"});
-        new StartUI(input, tracker).init();
+        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
+        new StartUI(input, tracker).startWorking();
         assertThat(result, is(tracker.findAll()[0].getId()));
     }
 
@@ -23,8 +23,8 @@ public class StubInputTest {
         Item item = new Item();
         tracker.add(item);
         String id = item.getId();
-        Input input = new StubInput(new String[]{"2", id, "test name", "desc", "y"});
-        new StartUI(input, tracker).init();
+        Input input = new StubInput(new String[]{"2", id, "test name", "desc", "6"});
+        new StartUI(input, tracker).startWorking();
         assertThat(tracker.findById(id).getName(), is("test name"));
     }
 
@@ -34,8 +34,8 @@ public class StubInputTest {
         Item item1 = tracker.add(new Item("name1"));
         Item item2 = tracker.add(new Item("name2"));
         Item item3 = tracker.add(new Item("name3"));
-        Input input = new StubInput(new String[]{"3", item2.getId(), "y"});
-        new StartUI(input, tracker).init();
+        Input input = new StubInput(new String[]{"3", item2.getId(), "6"});
+        new StartUI(input, tracker).startWorking();
         assertThat(tracker.findById(item2.getId()), is(nullValue()));
     }
 
@@ -46,8 +46,8 @@ public class StubInputTest {
         Item item2 = tracker.add(new Item("name2"));
         Item item3 = tracker.add(new Item("name3"));
         String result = item2.getId();
-        Input input = new StubInput(new String[]{"4", item2.getId(), "y"});
-        new StartUI(input, tracker).init();
+        Input input = new StubInput(new String[]{"4", item2.getId(), "6"});
+        new StartUI(input, tracker).startWorking();
         assertThat(result, is(tracker.findAll()[1].getId()));
         assertThat(tracker.findById(item2.getId()).getId(), is(result));
     }
@@ -58,8 +58,8 @@ public class StubInputTest {
         Item item = tracker.add(new Item("name"));
         Item[] result = new Item[100];
         result[0] = item;
-        Input input = new StubInput(new String[]{"5", item.getName(), "y"});
-        new StartUI(input, tracker).init();
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
+        new StartUI(input, tracker).startWorking();
         assertThat(tracker.findByName("name"), is(result) );
     }
 }
