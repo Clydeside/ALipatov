@@ -21,10 +21,8 @@ public class StubInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist)
             throw new MenuOutException("Please, enter number in range 0 - 6!");
-        }
+        return key;
     }
 }
