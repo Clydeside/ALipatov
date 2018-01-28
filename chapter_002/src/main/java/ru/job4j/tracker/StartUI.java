@@ -13,7 +13,7 @@ public class StartUI implements Stop {
 
     public void startWorking() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        menu.fillActions(this);
         menu.add(new MenuTracker.Exit(6, "Exit.", this));
 
         do {

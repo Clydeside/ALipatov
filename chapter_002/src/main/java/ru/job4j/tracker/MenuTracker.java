@@ -11,7 +11,7 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions[position++] = this.new AddItem(0, "Add new item.");
         this.actions[position++] = new MenuTracker.ShowItems(1, "Show all items.");
         this.actions[position++] = new EditItem(2, "Edit item.");
