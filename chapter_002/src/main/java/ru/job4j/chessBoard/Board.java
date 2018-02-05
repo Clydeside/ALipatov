@@ -10,15 +10,12 @@ public class Board {
     boolean move(Figure source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         if (source == null) {
             throw new FigureNotFoundException("Figure not found!");
-        } else {
-            Cell[] way = source.way(source.position, dest);
-            for (int i = 0; i < way.length; i++) {
-                System.out.println(way[i].y);
-            }
-            for (int i = 0; i < way.length; i++) {
-                if (way[i] == null)
-                    throw new OccupiedWayException("OccupiedWayException!");
-            }
+        }
+        Cell[] way = source.way(source.position, dest);
+        for (int i = 0; i < way.length; i++) {
+            System.out.println(way[i].y);
+            if (way[i] == null)
+                throw new OccupiedWayException("OccupiedWayException!");
         }
         return true;
     }

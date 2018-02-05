@@ -1,4 +1,5 @@
 package ru.job4j.chessBoard;
+import java.lang.Math;
 
 public class Bishop extends Figure {
     public Bishop(Cell dest) {
@@ -7,21 +8,11 @@ public class Bishop extends Figure {
 
     @Override
     Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-        int sourceX = source.x;
-        int sourceY = source.y;
-        int destX = dest.x;
-        int destY = dest.y;
-        for (int i = 1; i < 9; i++) {
-            if ((sourceX == destX + i) && (sourceY == destY + i)) {
-                Cell[] result = new Cell[sourceX - destX];
-                for (int j = sourceX; j > destX; j--) {
-                    result[j] = new Cell(j, j);
-                }
-                return result;
-            }
-            if ((sourceX == destX - i) && (sourceY == destY - i)) {
-                Cell[] result = new Cell[destX - sourceX];
-                for (int j = sourceX; j < destX; j++) {
+        int delta = Math.abs(source.x - dest.x);
+        Cell[] result = new Cell[delta];
+        for (int i = 0; i < 8; i++) {
+            if (((source.x == dest.x + i) && (source.y == dest.y + i)) || ((source.x == dest.x - i) && (source.y == dest.y - i))) {
+                for (int j = 0; j < delta; j++) {
                     result[j] = new Cell(j, j);
                 }
                 return result;
