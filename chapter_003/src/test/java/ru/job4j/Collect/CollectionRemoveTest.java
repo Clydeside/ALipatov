@@ -1,6 +1,7 @@
 package ru.job4j.Collect;
 
 import org.junit.Test;
+import ru.job4j.Collect.Collect;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
