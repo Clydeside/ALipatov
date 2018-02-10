@@ -12,34 +12,36 @@ public class ConvertListTest {
     @Test
     public void toListTest() {
         ConvertList convertList = new ConvertList();
-        int length = 5;
+        int length = 3;
         int[][] array = new int[length][length];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                array[i][j] = (int) (Math.random() * 10);
-                System.out.print(array[i][j] + " ");
+                array[i][j] = i * j;
             }
-            System.out.println();
         }
         ArrayList<Integer> list = convertList.toList(array);
-        for (Integer elem : list)
-            System.out.println(elem);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.addAll(Arrays.asList(0, 0, 0, 0, 1, 2, 0, 2, 4));
+        assertThat(list, is(expected));
     }
 
     @Test
     public void toArrayTest() {
         ConvertList convertList = new ConvertList();
         ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < 7; i++) {
-            list.add(i);
-        }
-        int[][] array = convertList.toArray(list, 3);
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(array[i][j] + " ");
+        list.addAll(Arrays.asList(0, 0, 0, 0, 0, 1, 2, 3, 0, 2, 4, 6, 0, 3, 6, 9));
+
+        int length = 4;
+        int[][] expected = new int[length][length];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                expected[i][j] = i * j;
             }
-            System.out.println();
         }
+        int[][] array = convertList.toArray(list, 4);
+
+        assertThat(array, is(expected));
     }
 
     @Test

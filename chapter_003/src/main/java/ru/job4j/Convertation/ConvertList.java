@@ -16,16 +16,16 @@ public class ConvertList {
 
     public int[][] toArray(ArrayList<Integer> list, int rows) {
         int[][] array = new int[rows][rows];
-        int mod = list.size() / rows;
+        int mod = list.size() % rows;
         for (int i = 0; i < mod; i++) {
             list.add(0);
         }
         int[] arr = list.stream().mapToInt(i->i).toArray();
         int temp = -1;
         for (int i = 0; i < arr.length; i++) {
-            if ((i % 3) == 0)
+            if ((i % rows) == 0)
                 temp++;
-            array[temp][i % 3] = arr[i];
+            array[temp][i % rows] = arr[i];
         }
         return array;
     }
