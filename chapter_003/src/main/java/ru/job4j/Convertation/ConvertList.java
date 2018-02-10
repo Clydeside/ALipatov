@@ -1,6 +1,7 @@
 package ru.job4j.Convertation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConvertList {
     public ArrayList<Integer> toList(int[][] array) {
@@ -27,5 +28,15 @@ public class ConvertList {
             array[temp][i % 3] = arr[i];
         }
         return array;
+    }
+
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<Integer>();
+        for (int i = 0; i < list.size(); i++) {
+            for (Integer elem : list.get(i)) {
+                result.add(elem);
+            }
+        }
+        return result;
     }
 }
