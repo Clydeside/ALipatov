@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
@@ -14,7 +17,7 @@ public class StubInputTest {
         String result = item.getId();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).startWorking();
-        assertThat(result, is(tracker.findAll()[0].getId()));
+        assertThat(result, is(tracker.findAll().get(0).getId()));
     }
 
     @Test
@@ -48,7 +51,7 @@ public class StubInputTest {
         String result = item2.getId();
         Input input = new StubInput(new String[]{"4", item2.getId(), "6"});
         new StartUI(input, tracker).startWorking();
-        assertThat(result, is(tracker.findAll()[1].getId()));
+        assertThat(result, is(tracker.findAll().get(1).getId()));
         assertThat(tracker.findById(item2.getId()).getId(), is(result));
     }
 
@@ -56,8 +59,8 @@ public class StubInputTest {
     public void findByNameTest() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("name"));
-        Item[] result = new Item[100];
-        result[0] = item;
+        ArrayList<Item> result = new ArrayList<>(100);
+        result.add(item);
         Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         new StartUI(input, tracker).startWorking();
         assertThat(tracker.findByName("name"), is(result) );
