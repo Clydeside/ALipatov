@@ -1,4 +1,4 @@
-package ru.job4j.Sort;
+package ru.job4j.Iterator;
 
 import java.util.*;
 

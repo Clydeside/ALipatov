@@ -1,4 +1,4 @@
-package ru.job4j.Sort;
+package ru.job4j.Iterator;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
