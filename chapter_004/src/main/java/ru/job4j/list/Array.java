@@ -36,7 +36,22 @@ public class Array<T> implements SimpleContainer<T> {
         return container.length;
     }
 
+    private int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (container[i]==null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (o.equals(container[i]))
+                    return i;
+        }
+        return -1;
+    }
 
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
 
     @Override
     public Iterator<T> iterator() throws ConcurrentModificationException {
