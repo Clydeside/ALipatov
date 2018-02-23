@@ -39,11 +39,25 @@ public class SimpleArray<T> implements Iterable<T> {
                 count++;
             }
         }
-        objects = new Object[objects.length - 1];
+        objects = new Object[count];
         this.index = 0;
         for (int i = 0; i < objects.length; i++) {
             this.objects[this.index++] = array[i];
         }
+    }
+
+    public int indexOf(T object) {
+        int result = 0;
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i].equals(object)) {
+                result = i;
+            }
+        }
+        return result;
+    }
+
+    public int size() {
+        return index;
     }
 
     public void add(T model) {
