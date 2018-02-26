@@ -1,40 +1,24 @@
 package ru.job4j.concurrency.threads;
 
-import java.util.StringTokenizer;
-
 public class AsyncOperations {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String str = "This is a string to operate.";
-        new Thread() {
-            @Override
-            public void run() {
-                char[] arr = str.toCharArray();
-                int countSpaces = 0;
-                for (int i = 0; i < arr.length; i++) {
-                    if (arr[i] == ' ') {
-                        countSpaces++;
-                    }
-                }
-                System.out.println(countSpaces);
-            }
-        }.start();
-        new Thread() {
-            @Override
-            public void run() {
-                int countWords = 0;
-                for(int e = 0; e < str.length(); e++){
-                    if(str.charAt(e) != ' '){
-                        countWords++;
-                        while(str.charAt(e) != ' ' && e < str.length()-1){
-                            e++;
-                        }
-                    }
-                }
-                System.out.println(countWords);
-            }
-        }.start();
+        CountSpaces countSpaces = new CountSpaces(str);
+        CountWords countWords = new CountWords(str);
+        Print start = new Print("Start to count spaces and words.");
+        Print end = new Print("Process finished.");
 
+        Thread spaces = new Thread(countSpaces);
+        Thread words = new Thread(countWords);
 
+        start.run();
+
+        spaces.start();
+        words.start();
+        spaces.join();
+        words.join();
+
+        end.run();
     }
 }
