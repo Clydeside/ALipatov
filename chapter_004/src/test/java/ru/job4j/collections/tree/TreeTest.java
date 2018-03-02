@@ -28,4 +28,21 @@ public class TreeTest {
                 is(false)
         );
     }
+
+    @Test
+    public void whenTreeIsBinaryShouldBeTrue() {
+        Tree<Integer> tree = new Tree<>(new Node<>(1));
+        tree.add(1, 2);
+        tree.add(1, 3);
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    @Test
+    public void whenTreeIsNotBinaryShouldBeFalse() {
+        Tree<Integer> tree = new Tree<>(new Node<>(1));
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        assertThat(tree.isBinary(), is(false));
+    }
 }
