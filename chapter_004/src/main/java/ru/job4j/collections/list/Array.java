@@ -1,22 +1,27 @@
 package ru.job4j.collections.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+@ThreadSafe
 public class Array<T> implements SimpleContainer<T> {
     private static final int DEFAULT_CAPACITY = 10;
+    @GuardedBy("this")
     private Object[] container;
     private int modCount = 0;
     private int size;
-    int position = 0;
+    private int position = 0;
 
     public Array() {
         this.container = new Object[DEFAULT_CAPACITY];
     }
 
-    public boolean add(T element) {
+    public synchronized boolean add(T element) {
         if (size == container.length)
             container = Arrays.copyOf(container, size * 2);
         container[size++] = element;
@@ -24,19 +29,19 @@ public class Array<T> implements SimpleContainer<T> {
         return true;
     }
 
-    public T get(int index) {
+    public synchronized T get(int index) {
         return (T) container[index];
     }
 
-    public Object[] toArray() {
+    public synchronized Object[] toArray() {
         return Arrays.copyOf(container, size);
     }
 
-    public int length() {
+    public synchronized int length() {
         return container.length;
     }
 
-    private int indexOf(Object o) {
+    private synchronized int indexOf(Object o) {
         if (o == null) {
             for (int i = 0; i < size; i++)
                 if (container[i]==null)
@@ -54,10 +59,10 @@ public class Array<T> implements SimpleContainer<T> {
     }
 
     @Override
-    public Iterator<T> iterator() throws ConcurrentModificationException {
+    public synchronized Iterator<T> iterator() throws ConcurrentModificationException {
         int expectedModCount = modCount;
 
-        Iterator<T> result = new Iterator<T>() {
+        return new Iterator<T>() {
             @Override
             public boolean hasNext() {
                 return position < size;
@@ -75,6 +80,5 @@ public class Array<T> implements SimpleContainer<T> {
                 return (T) container[position++];
             }
         };
-        return result;
     }
 }

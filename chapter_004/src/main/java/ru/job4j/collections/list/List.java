@@ -1,12 +1,17 @@
 package ru.job4j.collections.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
+@ThreadSafe
 public class List<T> implements SimpleContainer<T> {
     private int modCount = 0;
     private int size = 0;
+    @GuardedBy("this")
     private Node head;
 
     private class Node {
@@ -23,7 +28,7 @@ public class List<T> implements SimpleContainer<T> {
     }
 
     @Override
-    public boolean add(T element) {
+    public synchronized boolean add(T element) {
         Node temp = head;
         head = new Node(element);
         head.next = temp;
@@ -33,7 +38,7 @@ public class List<T> implements SimpleContainer<T> {
     }
 
     @Override
-    public T get(int index) {
+    public synchronized T get(int index) {
         Node temp = head;
         int n = size;
         T result = null;
@@ -49,7 +54,7 @@ public class List<T> implements SimpleContainer<T> {
     }
 
     @Override
-    public Iterator<T> iterator() throws ConcurrentModificationException, NoSuchElementException {
+    public synchronized Iterator<T> iterator() throws ConcurrentModificationException, NoSuchElementException {
         return new Iterator<T>() {
             int currentModCount = modCount;
             Node temp = head;
