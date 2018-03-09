@@ -45,7 +45,7 @@ public class SimpleBlockingQueueTest {
     }
     @Test
     public void firstTest() throws InterruptedException {
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
         Thread producer = new Thread(new Producer(queue));
         Thread consumer = new Thread(new Consumer(queue));
 

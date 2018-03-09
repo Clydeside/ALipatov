@@ -8,26 +8,27 @@ import java.util.Queue;
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
     final private Queue<T> queue = new LinkedList<>();
-    private final Object lock = new Object();
-    private int capacity = 2;
+    private int capacity = 0;
+
+    public SimpleBlockingQueue(int capacity) {
+        this.capacity = capacity;
+    }
 
     public void offer(T value) throws InterruptedException {
-        synchronized (lock) {
-            lock.notify();
-            while (queue.size() >= capacity) {
-                System.out.println("Producing...");
-                lock.wait();
+        synchronized (queue) {
+            queue.notify();
+            while (queue.size() == capacity) {
+                queue.wait();
             }
             queue.add(value);
         }
     }
 
     public T peek() throws InterruptedException {
-        synchronized (lock) {
-            lock.notify();
+        synchronized (queue) {
+            queue.notify();
             while (queue.isEmpty()) {
-                System.out.println("Consuming");
-                lock.wait();
+                queue.wait();
             }
             return queue.poll();
         }
