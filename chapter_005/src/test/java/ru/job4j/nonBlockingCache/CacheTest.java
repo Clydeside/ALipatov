@@ -30,5 +30,7 @@ public class CacheTest {
 
         assertThat(cache.getValue(1).getName(), is("first"));
         assertThat(cache.getValue(2).getName(), is("second"));
+        cache.update(2, new User("two", 2));
+        assertThat(cache.getValue(2).getName(), is("two"));
     }
 }

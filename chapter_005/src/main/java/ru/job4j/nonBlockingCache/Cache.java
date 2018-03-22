@@ -12,40 +12,35 @@ public class Cache {
     @GuardedBy("this")
     private ConcurrentHashMap<Integer, User> map = new ConcurrentHashMap<>();
 
-    @GuardedBy("this")
-    private final Object lock = new Object();
-
     public User getValue(Integer key) {
-        synchronized (lock) {
+        synchronized (this) {
             return map.get(key);
         }
     }
 
     public boolean add(Integer key, User user) {
-        synchronized (lock) {
+        synchronized (this) {
             map.put(key, user);
         }
         return true;
     }
 
     public void update(Integer key, User value) {
-        synchronized (lock) {
-            if (!value.getVersion().equals(map.get(key).getVersion())) {
-                throw new OptimisticException();
-            }
-            Iterator it = map.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                if (pair.getKey().equals(key)) {
-                    pair.setValue(value);
+        synchronized (this) {
+            map.computeIfPresent(key, (k, oldValue) -> {
+                int oldV = oldValue.getVersion();
+                if (oldV != value.getVersion()) {
+                    throw new OptimisticException();
                 }
-            }
+                map.put(k, value);
+                return value;
+            });
             map.get(key).incrementVersion();
         }
     }
 
     public boolean delete(Integer key) {
-        synchronized (lock) {
+        synchronized (this) {
             map.remove(key);
         }
         return true;

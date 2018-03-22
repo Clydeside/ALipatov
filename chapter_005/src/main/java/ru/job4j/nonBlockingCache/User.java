@@ -20,6 +20,7 @@ public class User {
     public User(String name, Integer id) {
         this.name = name;
         this.id = id;
+        this.version = 0;
     }
 
     public void setName(String name) {
