@@ -7,16 +7,20 @@ import net.jcip.annotations.ThreadSafe;
 public class Lock {
     @GuardedBy("this")
     private boolean locked = false;
+    private Thread owner;
 
-    public synchronized void lock() throws InterruptedException {
+    public synchronized void lock(Thread currentThread) throws InterruptedException {
         while (locked) {
             wait();
+            owner = currentThread;
         }
         locked = true;
     }
 
-    public synchronized void unlock() {
-        locked = false;
+    public synchronized void unlock(Thread currentThread) {
+        if (owner.equals(currentThread)) {
+            locked = false;
+        }
         notifyAll();
     }
 }
