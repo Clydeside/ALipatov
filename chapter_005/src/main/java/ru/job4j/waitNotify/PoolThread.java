@@ -2,7 +2,7 @@ package ru.job4j.waitNotify;
 
 public class PoolThread extends Thread {
 
-    private SimpleBlockingQueue taskQueue = null;
+    private final SimpleBlockingQueue taskQueue;
     private boolean       isStopped = false;
 
     public PoolThread(SimpleBlockingQueue taskQueue) {
