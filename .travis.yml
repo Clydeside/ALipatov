@@ -10,4 +10,4 @@ notifications:
     recipients:
       - lipatov.artem@mail.ru
     on_success: never
-    on_failure: always
+    on_failure: never
