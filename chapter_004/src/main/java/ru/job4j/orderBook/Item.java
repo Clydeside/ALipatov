@@ -8,15 +8,15 @@ public class Item {
     private String type;
     private String action;
     private int price;
-    private int volume;
+    private int amount;
 
-    public Item(String book, String type, String action, int price, int volume) {
+    public Item(String book, String type, String action, int price, int amount) {
         this.id = generateId();
         this.book = book;
         this.type = type;
         this.action = action;
         this.price = price;
-        this.volume = volume;
+        this.amount = amount;
     }
 
     private String generateId() {
@@ -43,11 +43,11 @@ public class Item {
         return price;
     }
 
-    public int getVolume() {
-        return volume;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

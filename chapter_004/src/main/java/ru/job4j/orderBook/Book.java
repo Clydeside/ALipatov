@@ -32,10 +32,56 @@ public class Book {
     }
 
     private void init(HashMap<String, Item> map) {
+        tryToCombine();
+
         for (Map.Entry<String, Item> entry : map.entrySet()) {
             Item value = entry.getValue();
-            String out = String.format("To buy: amount: %d price: %d",value.getVolume(), value.getPrice());
+            String out = String.format("Action: %s amount: %d price: %d", value.getAction(), value.getAmount(), value.getPrice());
             System.out.println(out);
         }
+    }
+
+    private void tryToCombine() {
+        boolean stop = true;
+        String key = "";
+        HashMap<String, Item> map = new HashMap<>();
+        while (stop) {
+            stop = hasSameAmount();
+            finish:
+            for (Map.Entry<String, Item> entryCurrent : itemsToBuy.entrySet()) {
+                Item valueCurrent = entryCurrent.getValue();
+                for (Map.Entry<String, Item> entryNext : itemsToBuy.entrySet()) {
+                    Item valueNext = entryNext.getValue();
+                    if (valueCurrent.getPrice() == valueNext.getPrice() && !(valueCurrent.getId().equals(valueNext.getId()))) {
+                        int amount = valueNext.getAmount();
+                        key = valueNext.getId();
+                        valueCurrent.setAmount(valueCurrent.getAmount() + amount);
+                        if (itemsToBuy.entrySet().iterator().next().equals(null)) {
+                            stop = true;
+                        }
+                        break finish;
+                    }
+                }
+            }
+            itemsToBuy.remove(key);
+        }
+    }
+
+    private boolean hasSameAmount() {
+        boolean stop = false;
+        HashMap<String, Item> map = new HashMap<>();
+        finish:
+        for (Map.Entry<String, Item> entryCurrent : itemsToBuy.entrySet()) {
+            Item valueCurrent = entryCurrent.getValue();
+            for (Map.Entry<String, Item> entryNext : itemsToBuy.entrySet()) {
+                Item valueNext = entryNext.getValue();
+                if (valueCurrent.getPrice() == valueNext.getPrice() && !(valueCurrent.getId().equals(valueNext.getId()))) {
+                    stop = true;
+                    break finish;
+
+                }
+            }
+        }
+        return stop;
     }
 }
