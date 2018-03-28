@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class TreeTest {
     @Test
-    public void when6ElFindLastThen6() {
+    public void whenSixElementFindLastThenSix() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
@@ -18,7 +18,20 @@ public class TreeTest {
         tree.add(4, 5);
         tree.add(5, 6);
         assertThat(
-                tree.findBy(6).isPresent(),
+                tree.findBy(5).isPresent(),
+                is(true)
+        );
+    }
+
+    @Test
+    public void whenFindingFiveThereIsNoSuchElement() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(5, 6);
+        assertThat(
+                tree.findBy(2).isPresent(),
                 is(true)
         );
     }

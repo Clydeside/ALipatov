@@ -29,8 +29,19 @@ public class Tree<E extends  Comparable<E>> implements SimpleTree<E> {
 
     @Override
     public boolean add(E parent, E child) {
+        if (contains(child)) {
+            try {
+                throw new ContainsDuplicateException("Contains");
+            } catch (ContainsDuplicateException e) {
+                e.printStackTrace();
+            }
+        }
         Optional<Node<E>> elem = findBy(parent);
-        elem.get().add(new Node(child));
+        try {
+            elem.get().add(new Node(child));
+        } catch (NoSuchElementException e) {
+            System.out.println("No such element!");
+        }
         return true;
     }
 
@@ -63,13 +74,25 @@ public class Tree<E extends  Comparable<E>> implements SimpleTree<E> {
     public Iterator<E> iterator() throws NoSuchElementException {
         return new Iterator<E>() {
             private Node<E> head = root;
-            private Node<E> next = root;
-            private Iterator<Node<E>> it = head.leaves().iterator();
-            private boolean firstIt = true;
+            private Queue<Node<E>> data = new LinkedList<>();
+            private Queue<Node<E>> queue = new LinkedList<>();
+
+            {
+                Optional<Node<E>> result = Optional.empty();
+                data.offer(this.head);
+                while (!data.isEmpty()) {
+                    Node<E> element = data.poll();
+                    queue.offer(element);
+
+                    for (Node<E> child : element.leaves()) {
+                        data.offer(child);
+                    }
+                }
+            }
 
             @Override
             public boolean hasNext() {
-                return it.hasNext() || next.leaves().size() != 0;
+                return !queue.isEmpty();
             }
 
             @Override
@@ -77,23 +100,7 @@ public class Tree<E extends  Comparable<E>> implements SimpleTree<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException("No such element!");
                 }
-                if (firstIt) {
-                    firstIt = false;
-                    return root.getValue();
-                }
-                E result = null;
-                if (!it.hasNext()) {
-                    it = next.leaves().iterator();
-                    next = it.next();
-                    while (next.leaves().size() == 0) {
-                        next = it.next();
-                    }
-                    head = next;
-                    next = next.leaves().iterator().next();
-                    it = head.leaves().iterator();
-                }
-                result = it.next().getValue();
-                return result;
+                return queue.poll().getValue();
             }
         };
     }
