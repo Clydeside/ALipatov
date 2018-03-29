@@ -1,56 +1,65 @@
 package ru.job4j.servlets;
 
+import ru.job4j.models.User;
 import ru.job4j.resourses.UserStorage;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.List;
 
 public class UsersServlet extends HttpServlet {
-    private UserStorage userStorage = new UserStorage();
+    private UserStorage storage = UserStorage.getInstance();
 
-    public UsersServlet() throws SQLException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        List<User> list = storage.getAllUsers();
+
+        out.println("<h1>Users List</h1>");
+        out.print("<table border='1' width='100%'>");
+        out.print("<tr><th>Id</th><th>Name</th><th>Login</th></tr>");
+        for(User user : list){
+            out.print("<tr><td>" + user.getId() + "</td>");
+            out.print("<td>" + user.getName() + "</td>");
+            out.print("<td>" + user.getLogin() + "</td></tr>");
+        }
+        out.print("</table>");
+
+        out.flush();
+        out.close();
     }
 
     @Override
-    protected synchronized void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        try {
-            String result = "<p>" + userStorage.getData() + "</p>";
-            PrintWriter writer = new PrintWriter(resp.getOutputStream());
-            writer.append(result);
-            writer.flush();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-  /*  @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.setContentType("text/html");
-//        String name = req.getParameter("name");
-//        String login = req.getParameter("login");
-//        userStorage.insertUser(name, login);
+        String name = req.getParameter("name");
+        String login = req.getParameter("login");
+        User user = new User(name, login);
+        storage.insertUser(user);
         doGet(req, resp);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String sid = req.getParameter("id");
+        int id = Integer.parseInt(sid);
+        String name = req.getParameter("name");
+        String login = req.getParameter("login");
+        User user = new User(name, login);
+        user.setId(id);
+        storage.updateUser(user);
+        doGet(req, resp);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String name = req.getParameter("name");
-//        userStorage.delete(name);
-//        doGet(req, resp);
-    }*/
+        String stringId = req.getParameter("id");
+        int id = Integer.parseInt(stringId);
+        storage.deleteUser(id);
+        doGet(req, resp);
+    }
 }
