@@ -15,24 +15,7 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.print("Please, fill the form:");
-        out.append("<!DOCTYPE html>" +
-                "<html lang=\"en\">" +
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                "<title>Delete</title>" +
-                "</head>" +
-                "<body>" +
-                "<form action = '" + req.getContextPath() + "/delete' method = 'post'>" +
-                "User ID: <input type='text' name='id'/>" +
-                "<input type='submit'>" +
-                "</form>" +
-                "<br>" +
-                "</body>" +
-                "</html>");
-        out.flush();
-        out.close();
+        resp.sendRedirect(String.format("%s/delete.jsp", req.getContextPath()));
     }
 
     @Override

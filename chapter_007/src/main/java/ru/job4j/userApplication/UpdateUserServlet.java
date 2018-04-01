@@ -16,26 +16,7 @@ public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.print("Please, fill the form:");
-        out.append("<!DOCTYPE html>" +
-                "<html lang=\"en\">" +
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                "<title>Update</title>" +
-                "</head>" +
-                "<body>" +
-                "<form action = '" + req.getContextPath() + "/update' method = 'post'>" +
-                "User ID : <input type='text' name='id'/>" +
-                "Name : <input type='text' name='name'/>" +
-                "Login : <input type='text' name='login'/>" +
-                "<input type='submit'>" +
-                "</form>" +
-                "<br>" +
-                "</body>" +
-                "</html>");
-        out.flush();
-        out.close();
+        resp.sendRedirect(String.format("%s/update.jsp", req.getContextPath()));
     }
 
     @Override
@@ -47,6 +28,6 @@ public class UpdateUserServlet extends HttpServlet {
         User user = new User(name, login);
         user.setId(id);
         storage.updateUser(user);
-        resp.sendRedirect("list");
+        resp.sendRedirect(String.format("%s/view.jsp", req.getContextPath()));
     }
 }

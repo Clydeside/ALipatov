@@ -16,26 +16,7 @@ public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.print("Please, fill the form:");
-        out.append("<!DOCTYPE html>" +
-                "<html lang=\"en\">" +
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                "<title>Create</title>" +
-                "</head>" +
-                "<body>" +
-                "<form action = '" + req.getContextPath() + "/create' method = 'post'>" +
-                "Name : <input type='text' name='name'/><br>" +
-                "Login : <input type='text' name='login'/><br>" +
-                "<input type='submit'>" +
-                "</form>" +
-                "<br>" +
-                "<a href='list'>Back to list</a><br><br>" +
-                "</body>" +
-                "</html>");
-        out.flush();
-        out.close();
+        resp.sendRedirect(String.format("%s/create.jsp", req.getContextPath()));
     }
 
     @Override
@@ -44,6 +25,6 @@ public class CreateUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         User user = new User(name, login);
         storage.insertUser(user);
-        resp.sendRedirect("list");
+        resp.sendRedirect(String.format("%s/view.jsp", req.getContextPath()));
     }
 }
