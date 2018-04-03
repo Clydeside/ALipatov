@@ -8,15 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 public class CreateUserServlet extends HttpServlet {
     private UserStorage storage = UserStorage.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        resp.sendRedirect(String.format("%s/create.jsp", req.getContextPath()));
+        req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
     }
 
     @Override
@@ -25,6 +24,6 @@ public class CreateUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         User user = new User(name, login);
         storage.insertUser(user);
-        resp.sendRedirect(String.format("%s/view.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

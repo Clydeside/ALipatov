@@ -15,8 +15,7 @@ public class UpdateUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        resp.sendRedirect(String.format("%s/update.jsp", req.getContextPath()));
+        req.getRequestDispatcher("/WEB-INF/views/update.jsp").forward(req,resp);
     }
 
     @Override
@@ -28,6 +27,6 @@ public class UpdateUserServlet extends HttpServlet {
         User user = new User(name, login);
         user.setId(id);
         storage.updateUser(user);
-        resp.sendRedirect(String.format("%s/view.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

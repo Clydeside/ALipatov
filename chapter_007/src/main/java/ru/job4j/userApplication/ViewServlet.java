@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ViewServlet extends HttpServlet {
+    private UserStorage storage = UserStorage.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        resp.sendRedirect(String.format("%s/view.jsp", req.getContextPath()));
+        req.setAttribute("users", storage.getAllUsers());
+        req.getRequestDispatcher("/WEB-INF/views/view.jsp").forward(req, resp);
     }
 }
