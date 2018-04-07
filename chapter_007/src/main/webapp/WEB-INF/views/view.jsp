@@ -25,5 +25,9 @@
         </tr>
     </c:forEach>
 </table>
+<br>
+<form action = "${pageContext.servletContext.contextPath}/exit" method = 'post'>
+    <input type='submit' value="Sign Out">
+</form>
 </body>
 </html>

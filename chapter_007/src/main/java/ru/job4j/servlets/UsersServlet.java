@@ -38,7 +38,7 @@ public class UsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
-        User user = new User(name, login);
+        User user = new User(name, login,null);
         storage.insertUser(user);
         doGet(req, resp);
     }
@@ -49,7 +49,7 @@ public class UsersServlet extends HttpServlet {
         int id = Integer.parseInt(sid);
         String name = req.getParameter("name");
         String login = req.getParameter("login");
-        User user = new User(name, login);
+        User user = new User(name, login,null);
         user.setId(id);
         storage.updateUser(user);
         doGet(req, resp);

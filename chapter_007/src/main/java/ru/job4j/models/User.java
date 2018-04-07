@@ -4,13 +4,15 @@ public class User {
     private int id;
     private String name;
     private String login;
+    private Role role;
 
     public User() {
     }
 
-    public User(String name, String login) {
+    public User(String name, String login, Role role) {
         this.name = name;
         this.login = login;
+        this.role = role;
     }
 
     public void setId(int id) {
@@ -35,6 +37,10 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     @Override

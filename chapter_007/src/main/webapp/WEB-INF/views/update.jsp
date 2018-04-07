@@ -12,7 +12,7 @@
     <label for="login">Login:</label>
     <input type='text' name='login' id="login"/>
     <input type='submit'>
-    </form>
+</form>
 <br><a href="${pageContext.servletContext.contextPath}/">Back to list</a><br><br>
 </body>
 </html>

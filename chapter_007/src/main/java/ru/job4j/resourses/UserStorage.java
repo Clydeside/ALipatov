@@ -1,5 +1,6 @@
 package ru.job4j.resourses;
 
+import ru.job4j.models.Role;
 import ru.job4j.models.User;
 
 import java.sql.*;
@@ -8,8 +9,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserStorage {
     private static final UserStorage instance = new UserStorage();
+    private List<User> result = getAllUsers();
 
     private UserStorage() {
+        result.add(new User("Admin", "root", new Role("admin", "root")));
+    }
+
+    public boolean isCredential(String login, String password) {
+        boolean exist = false;
+        for (User user : result) {
+            if (user.getLogin().equals(login) && user.getRole().getPassword().equals(password)) {
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 
     public static UserStorage getInstance(){
@@ -92,7 +106,6 @@ public class UserStorage {
 
                 result.add(user);
             }
-
             connection.close();
 
         } catch (Exception e) {
