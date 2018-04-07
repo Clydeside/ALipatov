@@ -90,6 +90,42 @@ public class UserStorage {
         }
     }
 
+    public void deleteUserByNameAndLogin(String name, String login) {
+        try {
+            Connection connection = getConnection();
+            String query = "DELETE FROM users WHERE name = ? AND login = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, login);
+            statement.executeUpdate();
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getUserIDByNameAndLogin(String name, String login) {
+        int id = 0;
+        try {
+            Connection connection = getConnection();
+            String query = "SELECT id FROM users WHERE name = ? AND login = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, login);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public List<User> getAllUsers() {
         List<User> result = new CopyOnWriteArrayList<>();
         try {
