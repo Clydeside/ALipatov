@@ -47,7 +47,6 @@ public class Book {
         HashMap<String, Item> map = new HashMap<>();
         while (stop) {
             stop = hasSameAmount();
-            finish:
             for (Map.Entry<String, Item> entryCurrent : itemsToBuy.entrySet()) {
                 Item valueCurrent = entryCurrent.getValue();
                 for (Map.Entry<String, Item> entryNext : itemsToBuy.entrySet()) {
@@ -59,9 +58,10 @@ public class Book {
                         if (itemsToBuy.entrySet().iterator().next().equals(null)) {
                             stop = true;
                         }
-                        break finish;
+                        break;
                     }
                 }
+                break;
             }
             itemsToBuy.remove(key);
         }
@@ -70,17 +70,16 @@ public class Book {
     private boolean hasSameAmount() {
         boolean stop = false;
         HashMap<String, Item> map = new HashMap<>();
-        finish:
         for (Map.Entry<String, Item> entryCurrent : itemsToBuy.entrySet()) {
             Item valueCurrent = entryCurrent.getValue();
             for (Map.Entry<String, Item> entryNext : itemsToBuy.entrySet()) {
                 Item valueNext = entryNext.getValue();
                 if (valueCurrent.getPrice() == valueNext.getPrice() && !(valueCurrent.getId().equals(valueNext.getId()))) {
                     stop = true;
-                    break finish;
-
+                    break;
                 }
             }
+            break;
         }
         return stop;
     }
