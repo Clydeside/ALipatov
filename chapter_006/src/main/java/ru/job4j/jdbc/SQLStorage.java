@@ -35,15 +35,19 @@ public class SQLStorage {
         this.n = n;
     }
 
+    public SQLStorage(String URL) throws SQLException {
+        this.URL = URL;
+        this.connection = DriverManager.getConnection(URL);
+    }
+
     public void setConnection() throws SQLException {
-        try {
+        try (Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO test VALUES(?)")
+        ) {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection(URL);
-            Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS test(field INTEGER)");
             statement.executeUpdate("DELETE FROM test");
             for (int i = 1; i <= n; i++) {
-                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO test VALUES(?)");
                 preparedStatement.setInt(1, i);
                 preparedStatement.executeUpdate();
             }
@@ -54,22 +58,13 @@ public class SQLStorage {
             System.out.println("Connection established!");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public void parse() throws SQLException {
         System.out.println("Creating 1.xml...");
-        try {
+        try(Statement statement = connection.createStatement()) {
             ArrayList<Integer> list = new ArrayList<>();
-            connection = DriverManager.getConnection(URL);
-            Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM test");
             while (resultSet.next()) {
@@ -87,13 +82,6 @@ public class SQLStorage {
             marshaller.marshal(entries, new File("1.xml"));
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -105,7 +93,6 @@ public class SQLStorage {
             StreamResult output = new StreamResult(new File(outFilename));
 
             TransformerFactory factory = TransformerFactory.newInstance();
-
             Transformer transformer;
 
             try {
@@ -121,11 +108,10 @@ public class SQLStorage {
         }
     }
 
-    public int parseAndFindAverage(String Filename) {
+    public int parseAndFindAverage(String filename) {
         int result = 0;
-
         try {
-            File fXmlFile = new File("2.xml");
+            File fXmlFile = new File(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -135,10 +121,8 @@ public class SQLStorage {
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    result += Integer.parseInt(eElement.getAttribute("field"));
-                }
+                Element eElement = (Element) nNode;
+                result += Integer.parseInt(eElement.getAttribute("field"));
             }
             result /= nList.getLength();
         } catch (Exception e) {

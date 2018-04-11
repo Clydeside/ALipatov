@@ -12,12 +12,11 @@ public class SQLStorageTest {
      */
     private String url = "jdbc:sqlite:";
     private String DBName = "test.db";
-    private int N = 5;
+    private int N = 100;
 
     @Test
     public void firstTest() throws SQLException {
-        SQLStorage storage = new SQLStorage();
-        storage.setURL(url + DBName);
+        SQLStorage storage = new SQLStorage(url + DBName);
         storage.setN(N);
 
 
