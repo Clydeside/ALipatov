@@ -20,10 +20,8 @@ public class SignOutControllerTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
         HttpSession session = mock(HttpSession.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-
         when(req.getRequestDispatcher("/WEB-INF/views/signIn.jsp")).thenReturn(dispatcher);
         when(req.getSession()).thenReturn(session);
-
         SignOutController controller = new SignOutController();
         controller.doPost(req, resp);
         verify(session, atLeastOnce()).invalidate();

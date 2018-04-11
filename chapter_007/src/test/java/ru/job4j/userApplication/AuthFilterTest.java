@@ -21,13 +21,10 @@ public class AuthFilterTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
         FilterChain chain = mock(FilterChain.class);
         HttpSession session = mock(HttpSession.class);
-
         when(req.getRequestURI()).thenReturn("/");
         when(req.getSession()).thenReturn(session);
-
         AuthFilter filter = new AuthFilter();
         filter.doFilter(req, resp, chain);
-
         verify(resp).sendRedirect(String.format("%s/signIn", req.getContextPath()));
     }
 }

@@ -19,7 +19,6 @@ public class UsersServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         List<User> list = storage.getAllUsers();
-
         out.println("<h1>Users List</h1>");
         out.print("<table border='1' width='100%'>");
         out.print("<tr><th>Id</th><th>Name</th><th>Login</th></tr>");
@@ -29,7 +28,6 @@ public class UsersServlet extends HttpServlet {
             out.print("<td>" + user.getLogin() + "</td></tr>");
         }
         out.print("</table>");
-
         out.flush();
         out.close();
     }

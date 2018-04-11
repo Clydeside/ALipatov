@@ -12,19 +12,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class EchoServlet extends HttpServlet {
     private List<String> users = new CopyOnWriteArrayList<>();
 
+    public List<String> getUsers() {
+        return users;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();;
         writer.append("Hello, this is a servlet!");
-
         StringBuilder builder = new StringBuilder("<table>");
         for (String login : this.users) {
             builder.append("<tr><td>" + login + "</td></tr>");
         }
         builder.append("</table>");
-
-
         writer.append("<!DOCTYPE html>" +
                 "<html lang=\"en\">" +
                 "<head>" +
@@ -40,7 +41,6 @@ public class EchoServlet extends HttpServlet {
                 builder.toString() +
                 "</body>" +
                 "</html>");
-
         writer.flush();
     }
 

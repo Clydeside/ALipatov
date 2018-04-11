@@ -22,14 +22,11 @@ public class CreateUserServletTest {
         CreateUserServlet servlet = new CreateUserServlet();
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
-
         String name = "first";
         String login = "loginFirst";
-
         when(req.getParameter("name")).thenReturn(name);
         when(req.getParameter("login")).thenReturn(login);
         servlet.doPost(req, resp);
-
         UserStorage storage = UserStorage.getInstance();
         List<User> users = storage.getAllUsers();
         assertThat(users.get(0).getName(), is("first"));

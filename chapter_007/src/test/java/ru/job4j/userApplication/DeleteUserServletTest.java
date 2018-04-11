@@ -23,10 +23,8 @@ public class DeleteUserServletTest {
         DeleteUserServlet servlet = new DeleteUserServlet();
         UserStorage storage = UserStorage.getInstance();
         storage.insertUser(new User("first", "login", null));
-
         int id = storage.getUserIDByNameAndLogin("first", "login");
         when(req.getParameter("id")).thenReturn(Integer.toString(id));
-
         servlet.doPost(req, resp);
         List<User> users = storage.getAllUsers();
         assertThat(users.isEmpty(), is(true));

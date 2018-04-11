@@ -17,14 +17,11 @@ public class SignInControllerTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
         HttpSession session = mock(HttpSession.class);
-
         when(req.getParameter("login")).thenReturn("root");
         when(req.getParameter("password")).thenReturn("root");
         when(req.getSession()).thenReturn(session);
-
         SignInController controller = new SignInController();
         controller.doPost(req, resp);
-
         verify(resp, atLeastOnce()).sendRedirect(anyString());
     }
 }
