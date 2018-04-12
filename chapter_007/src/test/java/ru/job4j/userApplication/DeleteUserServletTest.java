@@ -22,7 +22,7 @@ public class DeleteUserServletTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
         DeleteUserServlet servlet = new DeleteUserServlet();
         UserStorage storage = UserStorage.getInstance();
-        storage.insertUser(new User("first", "login", null));
+        storage.insertUser(new User("first", "login",null, null));
         int id = storage.getUserIDByNameAndLogin("first", "login");
         when(req.getParameter("id")).thenReturn(Integer.toString(id));
         servlet.doPost(req, resp);

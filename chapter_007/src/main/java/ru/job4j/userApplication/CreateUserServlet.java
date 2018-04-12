@@ -22,7 +22,7 @@ public class CreateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
-        User user = new User(name, login, null);
+        User user = new User(name, login,null, null);
         storage.insertUser(user);
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }

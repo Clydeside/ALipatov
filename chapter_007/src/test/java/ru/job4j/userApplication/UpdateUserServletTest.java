@@ -21,7 +21,7 @@ public class UpdateUserServletTest {
     public void updateServletTest() throws ServletException, IOException {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
-        User user = new User("userr", "logg", null);
+        User user = new User("userr", "logg",null, null);
         UserStorage storage = UserStorage.getInstance();
         storage.insertUser(user);
         String name = "user";

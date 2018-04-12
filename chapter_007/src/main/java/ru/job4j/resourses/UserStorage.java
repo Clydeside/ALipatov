@@ -12,7 +12,7 @@ public class UserStorage {
     private List<User> result = getAllUsers();
 
     private UserStorage() {
-        result.add(new User("Admin", "root", new Role("admin", "root")));
+        result.add(new User("Admin", "root", null, new Role("admin", "root")));
     }
 
     public boolean isCredential(String login, String password) {

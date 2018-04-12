@@ -4,15 +4,21 @@ public class User {
     private int id;
     private String name;
     private String login;
+    private String country;
     private Role role;
 
     public User() {
     }
 
-    public User(String name, String login, Role role) {
+    public User(String name, String login, String country, Role role) {
         this.name = name;
         this.login = login;
+        this.country = country;
         this.role = role;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setId(int id) {
@@ -37,6 +43,10 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public Role getRole() {
