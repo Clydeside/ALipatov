@@ -1,28 +1,34 @@
 package ru.job4j.tracker;
 
-public class Item {
-    private String name;
-    private String desc;
-    private long created;
-    private String[] comments;
-    private String id;
+import java.util.UUID;
 
-    public Item() {
+public class Item {
+    private String id;
+    private String name = "";
+    private String desc = "";
+    private long created = 0;
+    private String[] comments;
+
+    public Item(String id) {
+        this.id = id;
     }
 
-    public Item(String name) {
+    public Item(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Item(String name, String desc, long created) {
+    public Item(String id, String name, String desc) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public Item(String id, String name, String desc, long created) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.created = created;
-    }
-
-    public Item(String name, String desc) {
-        this.name = name;
-        this.desc = desc;
     }
 
     public String getId() {

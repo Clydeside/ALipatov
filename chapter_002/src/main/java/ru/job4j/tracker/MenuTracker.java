@@ -1,12 +1,12 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
     private ArrayList<UserAction> actions = new ArrayList<UserAction>(7);
-    private int position = 0;
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -39,9 +39,9 @@ public class MenuTracker {
     }
 
     private void showItem(Item item) {
+        System.out.println(" Id: " + item.getId());
         System.out.print(" Name: " + item.getName());
         System.out.print(" Description: " + item.getDesc());
-        System.out.println(" Id: " + item.getId());
     }
 
     private class AddItem extends BaseAction {
@@ -51,9 +51,10 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please, enter the task's id: ");
             String name = input.ask("Please, enter the task's name: ");
             String desc = input.ask("Please, enter the task's description: ");
-            tracker.add(new Item(name, desc));
+            tracker.add(new Item(id, name, desc));
         }
     }
 
@@ -76,7 +77,7 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Введите имя заявки :");
-            ArrayList<Item> item = tracker.findByName(name);
+            List<Item> item = tracker.findByName(name);
             for (int i = 0; i < item.size(); i++) {
                 if (item.get(i) != null)
                     showItem(item.get(i));
@@ -106,7 +107,6 @@ public class MenuTracker {
             String id = input.ask("Введите ID заявки :");
             Item item = tracker.findById(id);
             tracker.delete(item);
-            System.out.println("Deleted!");
         }
     }
 

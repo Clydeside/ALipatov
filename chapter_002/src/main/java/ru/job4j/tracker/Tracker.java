@@ -1,12 +1,14 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.database.TrackerStorage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class Tracker {
-    private ArrayList<Item> items = new ArrayList<Item>(100);
-    private int position = 0;
+    private TrackerStorage storage = TrackerStorage.getInstance();
 
     private String generateId() {
         String id = UUID.randomUUID().toString();
@@ -14,44 +16,27 @@ public class Tracker {
     }
 
     public Item add(Item item) {
-        item.setId(this.generateId());
-        this.items.add(item);
+        storage.addItem(item);
         return item;
     }
 
     public void update(Item item) {
-        for (int i = 0; i < items.size(); i++) {
-                items.set(i, item);
-        }
+        storage.updateItem(item);
     }
 
     public void delete(Item item) {
-        items.remove(item);
+        storage.deleteItem(item);
     }
 
-    public ArrayList<Item> findAll() {
-        ArrayList<Item> result = new ArrayList<Item>(100);
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i) != null)
-                result.add(items.get(i));
-        }
-        return result;
+    public List<Item> findAll() {
+        return storage.findAll();
     }
 
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> result = new ArrayList<Item>(100);
-        for (int i = 0; i < items.size(); i++) {
-            if ((items.get(i) != null) && (this.items.get(i).getName().equals(key)))
-                result.add(items.get(i));
-        }
-        return result;
+    public List<Item> findByName(String key) {
+        return storage.findByName(key);
     }
 
     public Item findById(String id) {
-        for (int i = 0; i < items.size(); i++) {
-            if ((items.get(i) != null) && (this.items.get(i).getId().equals(id)))
-                return items.get(i);
-        }
-        return null;
+        return storage.findById(id);
     }
 }

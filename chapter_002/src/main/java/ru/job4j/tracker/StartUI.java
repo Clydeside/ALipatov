@@ -18,7 +18,7 @@ public class StartUI implements Stop {
 
         do {
             menu.show();
-            menu.select(input.ask("Sepect: ", ranges));
+            menu.select(input.ask("Select: ", ranges));
         }
         while (this.working);
     }
