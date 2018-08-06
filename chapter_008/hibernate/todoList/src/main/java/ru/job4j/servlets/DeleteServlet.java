@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteServlet extends HttpServlet {
-    private TodoStorage storage = TodoStorage.getInstance();
+    private final TodoStorage storage = TodoStorage.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

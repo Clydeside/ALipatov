@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TodoServlet extends HttpServlet {
-    private TodoStorage storage = TodoStorage.getInstance();
+    private final TodoStorage storage = TodoStorage.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
