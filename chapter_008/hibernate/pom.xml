@@ -10,5 +10,6 @@
     </parent>
     <modules>
         <module>todoList</module>
+        <module>carSale</module>
     </modules>
 </project>
