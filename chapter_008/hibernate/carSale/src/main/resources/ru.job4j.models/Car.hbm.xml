@@ -7,10 +7,12 @@
         <property name="name" column="name"/>
         <many-to-one name="engine"
                      column="engine"
-                     class="ru.job4j.models.Engine" lazy="false"/>
+                     class="ru.job4j.models.Engine"
+                     lazy="false"/>
         <many-to-one name="gearbox"
                      column="gearbox"
-                     class="ru.job4j.models.Gearbox" lazy="false"/>
+                     class="ru.job4j.models.Gearbox"
+                     lazy="false"/>
         <many-to-one name="transmission"
                      column="transmission"
                      lazy="false"/>

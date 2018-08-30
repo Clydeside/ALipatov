@@ -29,4 +29,13 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CarsByMark</servlet-name>
+        <servlet-class>ru.job4j.servlets.CarsByMark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CarsByMark</servlet-name>
+        <url-pattern>/carsByMark</url-pattern>
+    </servlet-mapping>
 </web-app>

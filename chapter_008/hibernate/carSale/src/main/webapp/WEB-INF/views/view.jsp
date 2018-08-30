@@ -19,7 +19,7 @@
         <tr>
             <th>ID</th>
             <th>Марка</th>
-            <th>Тип вигателя</th>
+            <th>Тип двигателя</th>
             <th>Коробка передач</th>
             <th>Трансмиссия</th>
         </tr>
@@ -40,6 +40,18 @@
         <form method="post" action="${pageContext.servletContext.contextPath}/delete">
             <input class="form-control" type="text" name="id" placeholder="Delete Car By Id">
             <button class="btn btn-default" type="submit">Delete</button>
+        </form>
+    </div>
+    <div style="float: right" class="form-group form-inline">
+        <form method="get" action="${pageContext.servletContext.contextPath}/carsByMark">
+            <label for="mark">Find by mark:</label>
+            <input class="form-control" type="text" name="mark" placeholder="Enter the mark" id="mark">
+            <button class="btn btn-default" type="submit">Find</button>
+        </form>
+    </div>
+    <div style="float: left">
+        <form method="get" action="${pageContext.servletContext.contextPath}/cars">
+            <button class="btn btn-default" type="submit">ShowAllCars</button>
         </form>
     </div>
 </div>

@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ViewServlet extends HttpServlet {
+public class CarsByMark extends HttpServlet {
     private CarStorage storage = CarStorage.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("html/text");
-        List<Car> cars = storage.getAllCars();
+        List<Car> cars = storage.getAllCarsByMark(req.getParameter("mark"));
         req.setAttribute("cars", cars);
         req.getServletContext().getRequestDispatcher("/WEB-INF/views/view.jsp").forward(req, resp);
     }

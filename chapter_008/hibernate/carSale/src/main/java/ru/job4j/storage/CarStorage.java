@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import ru.job4j.models.Car;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -35,6 +36,19 @@ public class CarStorage {
 
     public List<Car> getAllCars() {
         return tx(session -> session.createQuery("from Car").list());
+    }
+
+    public List<Car> getAllCarsByMark(String mark) {
+        return tx(session -> {
+            List<Car> list = session.createQuery("from Car").list();
+            List<Car> result = new ArrayList<>();
+            for (Car car : list) {
+                if (car.getName().toLowerCase().equals(mark.toLowerCase())) {
+                    result.add(car);
+                }
+            }
+            return result;
+        });
     }
 
     public void insertCar(Car car) {
