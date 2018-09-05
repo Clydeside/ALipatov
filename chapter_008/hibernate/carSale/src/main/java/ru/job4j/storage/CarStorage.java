@@ -9,6 +9,7 @@ import ru.job4j.models.Car;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class CarStorage {
@@ -46,6 +47,17 @@ public class CarStorage {
                 if (car.getName().toLowerCase().equals(mark.toLowerCase())) {
                     result.add(car);
                 }
+            }
+            return result;
+        });
+    }
+
+    public Optional<Car> findCarById(final int id) {
+        return tx(session -> {
+            Optional<Car> result = Optional.empty();
+            Car car = session.get(Car.class, id);
+            if (car != null) {
+                result = Optional.of(car);
             }
             return result;
         });
