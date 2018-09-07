@@ -10,6 +10,7 @@
     </parent>
     <modules>
         <module>hibernate</module>
+        <module>spring</module>
     </modules>
     <dependencies>
         <dependency>
