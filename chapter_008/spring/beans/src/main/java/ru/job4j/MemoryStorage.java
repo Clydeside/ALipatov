@@ -1,6 +1,7 @@
 package ru.job4j;
 
 import org.springframework.stereotype.Component;
+import ru.job4j.interfaces.Storage;
 import ru.job4j.models.User;
 
 @Component

@@ -10,5 +10,6 @@
     </parent>
     <modules>
         <module>beans</module>
+        <module>storages</module>
     </modules>
 </project>

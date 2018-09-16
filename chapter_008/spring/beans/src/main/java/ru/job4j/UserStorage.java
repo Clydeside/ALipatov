@@ -2,10 +2,11 @@ package ru.job4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.job4j.interfaces.Storage;
 import ru.job4j.models.User;
 
 @Component
-public class UserStorage {
+public class UserStorage implements Storage {
     private final Storage storage;
 
     @Autowired
