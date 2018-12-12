@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 public class CarTest {
     @Test
+
     public void carTest() {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();

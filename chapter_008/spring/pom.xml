@@ -10,6 +10,7 @@
     </parent>
     <modules>
         <module>beans</module>
+        <module>carSaleMvc</module>
         <module>storages</module>
     </modules>
 </project>

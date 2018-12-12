@@ -4,8 +4,8 @@
             <generator class="identity"></generator>
         </id>
         <property name="name" column="name"></property>
-        <property name="transmission_id" column="transmission_id"></property>
-        <property name="engine_id" column="engine_id"></property>
-        <property name="gearbox_id" column="gearbox_id"></property>
+        <property name="transmission_id" column="transmission"></property>
+        <property name="engine_id" column="engine"></property>
+        <property name="gearbox_id" column="gearbox"></property>
     </class>
 </hibernate-mapping>
